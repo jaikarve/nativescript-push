@@ -22,6 +22,7 @@ export class CareComponent {
 
         this.title = selectedTabViewItem.title;
 
+        /*
         Push.register({
             android: {
               senderID: '982992243930'
@@ -39,7 +40,7 @@ export class CareComponent {
         .catch((error: Error) => {
             alert("Error: " + error);
             console.log("Error: " + error);
-        });
+        });*/
 
         Push.onNotification((data: any) => {
             alert("Data is: " + JSON.stringify(data));

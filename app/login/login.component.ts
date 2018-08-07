@@ -10,6 +10,9 @@ import { Page } from "ui/page";
 import { LoginForm } from "./login-form.model";
 import { UserService } from "./shared/user.service";
 
+import { Push } from "kinvey-nativescript-sdk/push";
+
+
 @Component({
     selector: "Login",
     moduleId: module.id,
@@ -54,6 +57,24 @@ export class LoginComponent implements OnInit {
 
         UserService.login(this._loginForm.email, this._loginForm.password)
             .then((user: Kinvey.User) => {
+                Push.register({
+                    android: {
+                      senderID: '982992243930'
+                    },
+                    ios: {
+                      alert: true,
+                      badge: true,
+                      sound: true
+                    }
+                })
+                .then((deviceToken: string) => {
+                    alert("Device registered.  Access token: " + deviceToken);
+                    console.log("Device registered.  Access token: " + deviceToken);
+                })
+                .catch((error: Error) => {
+                    alert("Error: " + error);
+                    console.log("Error: " + error);
+                });
                 this._routerExtensions.navigate(["/care"],
                     {
                         clearHistory: true,
